@@ -8,7 +8,8 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MapHBConnectionImplTest {
+
+class MapHBConnectionTest {
 
     @Test
     @DisplayName("Should create a Configuration class for connection with hbase")
@@ -19,4 +20,5 @@ class MapHBConnectionImplTest {
                 .asString()
                 .endsWith("hbase-site.xml");
     }
+
 }

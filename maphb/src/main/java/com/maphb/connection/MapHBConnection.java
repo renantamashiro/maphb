@@ -16,4 +16,9 @@ public interface MapHBConnection {
      * Retrieve a connection with Hbase if succeeded.
      */
     Connection getConnection();
+
+    /**
+     * Set a connection with Hbase if succeeded.
+     */
+    void setConnection();
 }

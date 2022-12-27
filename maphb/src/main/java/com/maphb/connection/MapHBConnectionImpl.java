@@ -4,6 +4,8 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,6 +15,10 @@ import java.util.Objects;
  * A class to establish a connection with HBase based a given hbase-site.xml file.
  */
 class MapHBConnectionImpl implements MapHBConnection {
+
+    private Connection connection;
+
+    final static Logger log = LoggerFactory.getLogger(MapHBConnectionImpl.class);
 
     protected MapHBConnectionImpl() {
 
@@ -26,6 +32,7 @@ class MapHBConnectionImpl implements MapHBConnection {
      * {@inheritDoc}
      */
     public Configuration getConfiguration() throws IOException {
+        log.info("MapHB connection management initialize.");
         Configuration config = HBaseConfiguration.create();
 
         URL hbaseSiteFileUrl = MapHBConnectionImpl.class
@@ -33,8 +40,9 @@ class MapHBConnectionImpl implements MapHBConnection {
                 .getResource(HBASE_SITE);
 
         if (Objects.isNull(hbaseSiteFileUrl)) {
-            throw new IOException("File hbase-site.xml does not exist on application resources folder.");
+            log.error("File hbase-site.xml does not exist on application resources folder.");
         } else {
+            log.info("HBase connection created successfully.");
             config.addResource(hbaseSiteFileUrl.getPath());
             this.configuration = config;
         }
@@ -46,15 +54,22 @@ class MapHBConnectionImpl implements MapHBConnection {
      * {@inheritDoc}
      */
     public Connection getConnection() {
+        return this.connection;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setConnection() {
         Connection conn = null;
         try {
             this.getConfiguration();
             conn = ConnectionFactory.createConnection(this.configuration);
         } catch (IOException e) {
-            // add logging
-            e.printStackTrace();
+            log.error("An error occurred during hbase connection initialization.");
+            log.error("Error message: ()", e);
         }
 
-        return conn;
+        this.connection = conn;
     }
 }
