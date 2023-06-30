@@ -18,8 +18,9 @@ import java.util.Objects;
 public class DemoServiceApplication {
 
 	public static void main(String[] args) {
-		CarModel carModel = new CarModel("GOL", "2025");
 		MapHBContext.startApplication(DemoServiceApplication.class);
+
+		CarModel carModel = new CarModel("GOL", "2025");
 
 		CarModelRepository carModelRepository = new CarModelRepository(CarModel.class);
 		carModelRepository.put(carModel);

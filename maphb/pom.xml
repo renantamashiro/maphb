@@ -121,7 +121,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>maphb.MapHBContext</mainClass>
+                                <mainClass>com.maphb.MapHBContext</mainClass>
                             </manifest>
                         </archive>
                         <descriptorRefs>
