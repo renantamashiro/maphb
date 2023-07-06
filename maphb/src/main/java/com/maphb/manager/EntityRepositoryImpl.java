@@ -1,9 +1,9 @@
 package com.maphb.manager;
 
 import com.maphb.manager.mapper.ModelMapper;
+import com.maphb.models.TableFilter;
 import com.maphb.models.TableMetadata;
 import org.apache.hadoop.hbase.client.*;
-import org.apache.hadoop.hbase.filter.FilterList;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,12 +97,16 @@ class EntityRepositoryImpl<T> implements EntityRepository<T> {
     }
 
     @Override
-    public List<T> scan(FilterList filterList) {
+    public List<T> scan(TableFilter<T> tableFilter) {
         List<T> objectsList = new ArrayList<>();
 
         Scan scan = new Scan();
-        scan.setFilter(filterList);
+        if (tableFilter.hasPrefixFilter()) {
+            scan.setStartStopRowForPrefixScan(tableFilter.getPrefixFilter());
+        }
+        scan.setFilter(tableFilter.getFilterList());
         scan.setCaching(CACHING);
+
 
         try (Table table = this.connection.getTable(this.tableMetadata.getTableName())) {
             ResultScanner scanner = table.getScanner(scan);

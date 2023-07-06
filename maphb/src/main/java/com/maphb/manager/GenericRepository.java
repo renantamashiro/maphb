@@ -1,6 +1,6 @@
 package com.maphb.manager;
 
-import org.apache.hadoop.hbase.filter.FilterList;
+import com.maphb.models.TableFilter;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public abstract class GenericRepository<T> implements IGenericRepository<T> {
     }
 
     @Override
-    public List<T> scan(FilterList filterList) {
-        return entityRepository.scan(filterList);
+    public List<T> scan(TableFilter<T> tableFilter) {
+        return entityRepository.scan(tableFilter);
     }
 }

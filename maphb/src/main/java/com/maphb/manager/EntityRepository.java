@@ -1,6 +1,6 @@
 package com.maphb.manager;
 
-import org.apache.hadoop.hbase.filter.FilterList;
+import com.maphb.models.TableFilter;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ public interface EntityRepository<T> {
 
     void delete(String rowKey);
 
-    List<T> scan(FilterList filterList);
+    List<T> scan(TableFilter<T> filterList);
 
 }

@@ -3,6 +3,7 @@ package com.example.demoservice;
 import com.example.demoservice.model.CarModel;
 import com.example.demoservice.repository.CarModelRepository;
 import com.maphb.MapHBContext;
+import com.maphb.models.TableFilter;
 import org.apache.hadoop.hbase.filter.FilterList;
 import org.apache.hadoop.hbase.filter.PrefixFilter;
 import org.apache.hadoop.hbase.filter.RowFilter;
@@ -21,16 +22,20 @@ public class DemoServiceApplication {
 		MapHBContext.startApplication(DemoServiceApplication.class);
 
 		CarModel carModel = new CarModel("GOL", "2025");
+		CarModel carModel1 = new CarModel();
+
+		carModel1.setYearModel("2002");
 
 		CarModelRepository carModelRepository = new CarModelRepository(CarModel.class);
 		carModelRepository.put(carModel);
 
-		FilterList filterList = new FilterList();
-		filterList.addFilter(new PrefixFilter(Bytes.toBytes("GOL")));
-		List<CarModel> carModelList = carModelRepository.scan(filterList);
 
-		for (CarModel carModel1 : carModelList) {
-			System.out.println(carModel1);
+		TableFilter<CarModel> t = new TableFilter<>(CarModel.class);
+		t.setFilterByModelExample(carModel1);
+		List<CarModel> carModelList = carModelRepository.scan(t);
+
+		for (CarModel carModel2 : carModelList) {
+			System.out.println(carModel2);
 		}
 
 		carModelRepository.delete("GOL#2002");
