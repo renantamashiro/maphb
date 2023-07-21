@@ -15,8 +15,8 @@ class DataStoreContextImpl implements DataStoreContext {
 
     final static Logger log = LoggerFactory.getLogger(DataStoreContextImpl.class);
 
-    private Connection connection;
-    private Set<TableMetadata> tableMetadataSet;
+    private final Connection connection;
+    private final Set<TableMetadata> tableMetadataSet;
 
     protected DataStoreContextImpl(Connection connection, Set<TableMetadata> tableMetadataSet) {
         this.connection = connection;

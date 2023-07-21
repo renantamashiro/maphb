@@ -8,17 +8,17 @@ import java.io.IOException;
 public interface MapHBConnection {
 
     /**
-     * Set the necessary configurations for a connection with HBase.
+     * Sets the necessary configurations for a connection with HBase.
      */
     Configuration getConfiguration() throws IOException;
 
     /**
-     * Retrieve a connection with Hbase if succeeded.
+     * Retrieves a connection with Hbase if succeeded.
      */
     Connection getConnection();
 
     /**
-     * Set a connection with Hbase if succeeded.
+     * Sets a connection with Hbase if succeeded.
      */
     void setConnection();
 }

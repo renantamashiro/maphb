@@ -107,14 +107,10 @@ class EntityRepositoryImpl<T> implements EntityRepository<T> {
         scan.setFilter(tableFilter.getFilterList());
         scan.setCaching(CACHING);
 
-
         try (Table table = this.connection.getTable(this.tableMetadata.getTableName())) {
             ResultScanner scanner = table.getScanner(scan);
-
-            log.info(scanner.toString());
             for (Result result : scanner) {
                 if (result != null) {
-                    log.info("Scan result {}", result);
                     objectsList.add(this.modelMapper.createObjectFromResult(result));
                 }
             }
