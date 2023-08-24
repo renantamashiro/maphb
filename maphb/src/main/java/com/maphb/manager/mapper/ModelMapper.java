@@ -22,6 +22,12 @@ public class ModelMapper<T> {
         this.classType = clazz;
     }
 
+    /**
+     * Create a Put object from an object
+     * @param rowKey object rowkey
+     * @param object to be saved on HBase
+     * @return a Put object to be used to persist object
+     */
     public Put createPutFromObject(String rowKey, T object) {
         Put putObject = new Put(Bytes.toBytes(rowKey));
         Reflections reflections = new Reflections(classType.getPackageName(), Scanners.values());
@@ -44,6 +50,11 @@ public class ModelMapper<T> {
         return putObject;
     }
 
+    /**
+     * Create a rowkey from an object
+     * @param object object model
+     * @return a rowkey String
+     */
     public String getRowKey(T object) {
         StringBuilder rowKey = new StringBuilder();
 
@@ -72,6 +83,11 @@ public class ModelMapper<T> {
         return rowKey.toString();
     }
 
+    /**
+     * Create an object from Result
+     * @param result Result object from a Get/Scan operation
+     * @return object T
+     */
     public T createObjectFromResult(Result result) {
         T object;
         try {
@@ -98,6 +114,9 @@ public class ModelMapper<T> {
         return object;
     }
 
+    /**
+     * Retrieves the field value from Result
+     */
     private String retrieveValue(Field field, Result result) {
         String resultString = null;
         if (classType.getName().equalsIgnoreCase(field.getDeclaringClass().getName())) {
