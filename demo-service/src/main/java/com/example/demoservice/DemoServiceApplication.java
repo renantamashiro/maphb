@@ -4,15 +4,9 @@ import com.example.demoservice.model.CarModel;
 import com.example.demoservice.repository.CarModelRepository;
 import com.maphb.MapHBContext;
 import com.maphb.models.TableFilter;
-import org.apache.hadoop.hbase.filter.FilterList;
-import org.apache.hadoop.hbase.filter.PrefixFilter;
-import org.apache.hadoop.hbase.filter.RowFilter;
-import org.apache.hadoop.hbase.util.Bytes;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.apache.hadoop.hbase.client.Connection;
+import org.springframework.context.annotation.Bean;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,14 +35,12 @@ public class DemoServiceApplication {
 		carModelRepository.delete("GOL#2002");
 
 		System.out.println(Objects.isNull(carModelRepository.get("GOL#2002")));
-
-
 	}
 
-//	@Bean
-//	public Connection connection() {
-//		return MapHBContext.getConnection();
-//	}
+	@Bean
+	public Connection connection() {
+		return MapHBContext.getConnection();
+	}
 
 }
 
