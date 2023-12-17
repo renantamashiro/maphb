@@ -31,7 +31,7 @@ At this moment, MapHB starts a connection with HBase also an entity scanning to 
 
 
 ### Entity Mapping
-To create a relationshio between a java class and hbase tabel, you need to annotate the corresponding class with `@Table` annotation passing as parameters the table name and the column families:
+To create a relationship between a java class and hbase tabel, you need to annotate the corresponding class with `@Table` annotation passing as parameters the table name and the column families:
 
 ```java
 @Table(name = "table_name", columnFamilies = {"cf1", "cf2"}
