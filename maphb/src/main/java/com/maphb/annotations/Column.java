@@ -6,8 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation that represents a Column qualifier HBase. Field annotated with Column.class will be interpreted as a
- * qualifier.
+ * Annotation used to specify the HBase column family and qualifier for a field.
+ * This annotation should be applied to fields in classes that are mapped to HBase tables.
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

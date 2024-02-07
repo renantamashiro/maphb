@@ -5,21 +5,25 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+
 /**
- * Annotation that represents a HBase rowkey.
- * RowKey.class is used as an identifier for rowkey creation based on keys defined in it and a delimiter.
+ * Annotation used to specify the row key for a field in a data model.
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RowKey {
 
     /**
-     * Entity fields that will be used as keys.
+     * The keys that make up the row key.
+     *
+     * @return an array of strings representing the keys
      */
     String[] keys();
 
     /**
-     * Delimiter for keys separation.
+     * The delimiter used to separate the keys in the row key.
+     *
+     * @return the delimiter string
      */
     String delimiter();
 

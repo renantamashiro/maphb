@@ -14,6 +14,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/**
+ * The ModelMapper class is responsible for mapping objects to HBase Put objects,
+ * retrieving row keys from objects, and creating objects from HBase Result objects.
+ * It uses reflection to scan the fields of the object's class and perform the necessary operations.
+ *
+ * @param <T> the type of object to be mapped
+ */
 public class ModelMapper<T> {
 
     private final Class<T> classType;
@@ -23,11 +30,12 @@ public class ModelMapper<T> {
     }
 
     /**
-     * Create a Put object from an object
-     * @param rowKey object rowkey
-     * @param object to be saved on HBase
-     * @return a Put object to be used to persist object
-     */
+        * Creates a Put object from the given row key and object.
+        *
+        * @param rowKey the row key for the Put object
+        * @param object the object from which the Put object is created
+        * @return the created Put object
+        */
     public Put createPutFromObject(String rowKey, T object) {
         Put putObject = new Put(Bytes.toBytes(rowKey));
         Reflections reflections = new Reflections(classType.getPackageName(), Scanners.values());
@@ -50,10 +58,12 @@ public class ModelMapper<T> {
         return putObject;
     }
 
+
     /**
-     * Create a rowkey from an object
-     * @param object object model
-     * @return a rowkey String
+     * Retrieves the row key for the given object.
+     *
+     * @param object the object for which to retrieve the row key
+     * @return the row key as a string
      */
     public String getRowKey(T object) {
         StringBuilder rowKey = new StringBuilder();
@@ -84,9 +94,10 @@ public class ModelMapper<T> {
     }
 
     /**
-     * Create an object from Result
-     * @param result Result object from a Get/Scan operation
-     * @return object T
+     * Creates an object of type T from a Result object.
+     *
+     * @param result the Result object containing the data to create the object from
+     * @return an object of type T created from the Result object
      */
     public T createObjectFromResult(Result result) {
         T object;
@@ -115,7 +126,11 @@ public class ModelMapper<T> {
     }
 
     /**
-     * Retrieves the field value from Result
+     * Retrieves the value from the given field in the specified result.
+     *
+     * @param field  the field to retrieve the value from
+     * @param result the result containing the value
+     * @return the retrieved value as a string, or null if the field does not match the class type
      */
     private String retrieveValue(Field field, Result result) {
         String resultString = null;
@@ -128,6 +143,12 @@ public class ModelMapper<T> {
         return resultString;
     }
 
+    /**
+        * Retrieves the setter method for a given field.
+        *
+        * @param field the field for which to retrieve the setter method
+        * @return the setter method for the field, or null if not found
+        */
     private Method getSetter(Field field) {
         Method method = null;
         try {
@@ -138,6 +159,12 @@ public class ModelMapper<T> {
         return method;
     }
 
+    /**
+        * Retrieves the getter method for a given field.
+        *
+        * @param field the field for which to retrieve the getter method
+        * @return the getter method for the field, or null if not found
+        */
     private Method getGetter(Field field) {
         Method method = null;
         try {

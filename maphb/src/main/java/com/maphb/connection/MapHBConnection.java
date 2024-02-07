@@ -5,20 +5,28 @@ import org.apache.hadoop.hbase.client.Connection;
 
 import java.io.IOException;
 
+/**
+ * This interface represents a connection to a MapHB database.
+ */
 public interface MapHBConnection {
 
     /**
-     * Sets the necessary configurations for a connection with HBase.
+     * Retrieves the configuration for the MapHB connection.
+     *
+     * @return the configuration object
+     * @throws IOException if an I/O error occurs while retrieving the configuration
      */
     Configuration getConfiguration() throws IOException;
 
     /**
-     * Retrieves a connection with Hbase if succeeded.
+     * Retrieves the connection to the MapHB database.
+     *
+     * @return the database connection
      */
     Connection getConnection();
 
     /**
-     * Sets a connection with Hbase if succeeded.
+     * Sets the connection to the MapHB database.
      */
     void setConnection();
 }

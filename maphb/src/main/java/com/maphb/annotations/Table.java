@@ -6,19 +6,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation responsible for declare a HBase Table.
+ * Annotation used to specify the name of a table and its column families.
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Table {
 
     /**
-     * HBase table name. (Consider the full name: namespace + table_name)
+     * The name of the table.
      */
     String name();
 
     /**
-     * Table column families.
+     * The column families of the table.
      */
     String[] columnFamilies();
 }

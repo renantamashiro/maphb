@@ -11,8 +11,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
+
 /**
- * A class to establish a connection with HBase based a given hbase-site.xml file.
+ * Implementation of the MapHBConnection interface.
+ * This class manages the connection to HBase and provides methods to retrieve the configuration and connection objects.
  */
 class MapHBConnectionImpl implements MapHBConnection {
 
@@ -28,8 +30,12 @@ class MapHBConnectionImpl implements MapHBConnection {
 
     private static final String HBASE_SITE = "hbase-site.xml";
 
+
     /**
-     * {@inheritDoc}
+     * Retrieves the HBase configuration.
+     * This method loads the HBase configuration from the hbase-site.xml file and returns the Configuration object.
+     * @return The HBase Configuration object.
+     * @throws IOException if an I/O error occurs while loading the configuration.
      */
     public Configuration getConfiguration() throws IOException {
         log.info("Starting MapHB connection management.");
@@ -49,15 +55,21 @@ class MapHBConnectionImpl implements MapHBConnection {
         return config;
     }
 
+
     /**
-     * {@inheritDoc}
+     * Retrieves the HBase connection.
+     * This method returns the Connection object that represents the connection to HBase.
+     * @return The HBase Connection object.
      */
     public Connection getConnection() {
         return this.connection;
     }
 
+
     /**
-     * {@inheritDoc}
+     * Sets the HBase connection.
+     * This method initializes the HBase connection by creating a Connection object using the HBase Configuration.
+     * It also logs the success or failure of the connection initialization.
      */
     public void setConnection() {
         Connection conn = null;

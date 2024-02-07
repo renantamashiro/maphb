@@ -16,6 +16,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * Represents metadata for a table.
+ */
+/**
+ * Represents metadata for a table.
+ */
 @Builder
 @AllArgsConstructor
 public class TableMetadata {

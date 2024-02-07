@@ -12,10 +12,16 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * The DataStoreContextInitiator class is responsible for creating a context for interacting with the data store.
+ */
 public final class DataStoreContextInitiator {
 
     final static Logger log = LoggerFactory.getLogger(DataStoreContextInitiator.class);
 
+    /**
+     * Represents a context for interacting with the data store.
+     */
     public static DataStoreContext create(Class<?> applicationContext, Connection connection) {
         Package mainPackage = applicationContext.getPackage();
         Reflections reflections = new Reflections(mainPackage.getName(), Scanners.values());
